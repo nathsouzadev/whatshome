@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 import axios from 'axios';
 
@@ -40,7 +40,8 @@ export class AppController {
   }
 
   @Get('/webhook')
-  async register(req) {
+  async register(@Request() req) {
+    console.log(req.query);
     const mode = req.query['hub.mode'];
     const token = req.query['hub.verify_token'];
     const challenge = req.query['hub.challenge'];
