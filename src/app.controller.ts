@@ -53,7 +53,7 @@ export class AppController {
     if (mode === 'subscribe' && token === process.env.WEBHOOK_VERIFY_TOKEN) {
       // respond with 200 OK and challenge token from the request
       console.log('Webhook verified successfully!');
-      return { message: 'Verified ' + challenge };
+      return challenge;
     } else {
       // respond with '403 Forbidden' if verify tokens do not match
       return { message: 'Error' };
