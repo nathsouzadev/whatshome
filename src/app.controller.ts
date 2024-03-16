@@ -41,7 +41,7 @@ export class AppController {
 
         console.log(response);
       } catch (error) {
-        console.log(error.error);
+        console.log(error.message);
       }
     }
 
