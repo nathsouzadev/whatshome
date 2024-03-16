@@ -22,7 +22,7 @@ export class AppController {
         req.body.entry?.[0].changes?.[0].value?.metadata?.phone_number_id;
 
       // send a reply message as per the docs here https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
-      await axios({
+      const response = await axios({
         method: 'POST',
         url: `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
         headers: {
@@ -37,6 +37,8 @@ export class AppController {
           },
         },
       });
+
+      console.log(response);
     }
 
     return { message: 'ok' };
