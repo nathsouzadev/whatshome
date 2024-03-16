@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Request } from '@nestjs/common';
+import { Controller, Get, HttpCode, Post, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 import axios from 'axios';
 
@@ -7,7 +7,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('/webhook')
-  async getHello(req) {
+  @HttpCode(200)
+  async getHello(@Request() req) {
     console.log('Incoming webhook message:', JSON.stringify(req.body, null, 2));
 
     // check if the webhook request contains a message
