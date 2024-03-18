@@ -6,10 +6,14 @@ import {
   Request,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import axios from 'axios';
 
 @Controller()
 export class MessageController {
+  @ApiOkResponse({
+    description: 'Webhook receive whatsapp messages from Whatsapp API',
+  })
   @Post('/message')
   @HttpCode(200)
   async getHello(@Request() req) {
@@ -48,6 +52,17 @@ export class MessageController {
     return { message: 'ok' };
   }
 
+  @ApiOkResponse({
+    description: 'Return challenge',
+    schema: {
+      example: {
+        text: 'query.hub.challenge'
+      },
+    },
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Return error when does not have token',
+  })
   @Get('/message')
   async register(@Request() req) {
     if (req.query['hub.verify_token'] == process.env.WEBHOOK_VERIFY_TOKEN) {
