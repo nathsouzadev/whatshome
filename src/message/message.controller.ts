@@ -56,7 +56,7 @@ export class MessageController {
     description: 'Return challenge',
     schema: {
       example: {
-        text: 'query.hub.challenge'
+        text: 'query.hub.challenge',
       },
     },
   })

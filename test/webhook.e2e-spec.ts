@@ -26,37 +26,37 @@ describe('MessageController (e2e)', () => {
     describe('answer message to user', () => {
       it('return 200 when receive a message', () => {
         const mockCompanyPhone = '551199991234';
-      const mockCustomerPhone = '5511999991111';
-      nock(`${mockUrl}/${mockPhoneNumberId}/messages`)
-        .post('')
-        .reply(200, {
-          messaging_product: 'whatsapp',
-          contacts: [
-            {
-              input: mockCustomerPhone,
-              wa_id: mockCustomerPhone,
-            },
-          ],
-          messages: [
-            {
-              id: 'amid.HBgNNTUxMTk5MDExNjU1NRUCABEYEjdFRkNERTk5NjQ5OUJCMDk0MAA=',
-            },
-          ],
-        });
+        const mockCustomerPhone = '5511999991111';
+        nock(`${mockUrl}/${mockPhoneNumberId}/messages`)
+          .post('')
+          .reply(200, {
+            messaging_product: 'whatsapp',
+            contacts: [
+              {
+                input: mockCustomerPhone,
+                wa_id: mockCustomerPhone,
+              },
+            ],
+            messages: [
+              {
+                id: 'amid.HBgNNTUxMTk5MDExNjU1NRUCABEYEjdFRkNERTk5NjQ5OUJCMDk0MAA=',
+              },
+            ],
+          });
 
-      return request(app.getHttpServer())
-        .post('/message')
-        .send(
-          mockMetaMessage({
-            message: 'Quero participar',
-            receiver: mockCompanyPhone,
-            sender: mockCustomerPhone,
-            phoneNumberId: mockPhoneNumberId,
-            type: 'message',
-          }),
-        )
-        .expect(200);
-      })
+        return request(app.getHttpServer())
+          .post('/message')
+          .send(
+            mockMetaMessage({
+              message: 'Quero participar',
+              receiver: mockCompanyPhone,
+              sender: mockCustomerPhone,
+              phoneNumberId: mockPhoneNumberId,
+              type: 'message',
+            }),
+          )
+          .expect(200);
+      });
     });
     describe('activate webhook with Meta', () => {
       const mockToken = randomUUID();
