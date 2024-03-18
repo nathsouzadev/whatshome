@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Post, Request } from '@nestjs/common';
+import { Controller, Get, HttpCode, Post, Request, UnauthorizedException } from '@nestjs/common';
 import { AppService } from './app.service';
 import axios from 'axios';
 
@@ -49,20 +49,10 @@ export class AppController {
   }
 
   @Get('/webhook')
-  async register(@Request() req) {
-    console.log(req.query);
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
-
-    // check the mode and token sent are correct
-    if (mode === 'subscribe' && token === process.env.WEBHOOK_VERIFY_TOKEN) {
-      // respond with 200 OK and challenge token from the request
-      console.log('Webhook verified successfully!');
-      return challenge;
-    } else {
-      // respond with '403 Forbidden' if verify tokens do not match
-      return { message: 'Error' };
+  async register(@Request() req)  {
+    if (req.query['hub.verify_token'] == process.env.WEBHOOK_VERIFY_TOKEN) {
+      return req.query['hub.challenge'];
     }
+    throw new UnauthorizedException();
   }
 }
