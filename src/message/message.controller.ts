@@ -1,16 +1,18 @@
-import { Controller, Get, HttpCode, Post, Request, UnauthorizedException } from '@nestjs/common';
-import { AppService } from './app.service';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Request,
+  UnauthorizedException,
+} from '@nestjs/common';
 import axios from 'axios';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Post('/webhook')
+export class MessageController {
+  @Post('/message')
   @HttpCode(200)
   async getHello(@Request() req) {
-    console.log('Incoming webhook message:', JSON.stringify(req.body, null, 2));
-
     // check if the webhook request contains a message
     // details on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
     const message = req.body.entry?.[0]?.changes[0]?.value?.messages?.[0];
@@ -38,8 +40,6 @@ export class AppController {
             },
           },
         });
-
-        console.log(response);
       } catch (error) {
         console.log(error.message);
       }
@@ -48,8 +48,8 @@ export class AppController {
     return { message: 'ok' };
   }
 
-  @Get('/webhook')
-  async register(@Request() req)  {
+  @Get('/message')
+  async register(@Request() req) {
     if (req.query['hub.verify_token'] == process.env.WEBHOOK_VERIFY_TOKEN) {
       return req.query['hub.challenge'];
     }
