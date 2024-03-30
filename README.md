@@ -36,6 +36,11 @@ $ yarn test:e2e
 $ yarn test:cov
 ```
 
+## Routes available
+```bash
+$ localhost:3000/api
+```
+
 ## Stay in touch
 
 - Author - [Nathally Souza](https://linkedin.com/in/nathsouza)
