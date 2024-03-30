@@ -14,7 +14,7 @@ export class MessageController {
   @ApiOkResponse({
     description: 'Webhook receive whatsapp messages from Whatsapp API',
   })
-  @Post('/message')
+  @Post()
   @HttpCode(200)
   async getHello(@Request() req) {
     // check if the webhook request contains a message
@@ -63,7 +63,7 @@ export class MessageController {
   @ApiUnauthorizedResponse({
     description: 'Return error when does not have token',
   })
-  @Get('/message')
+  @Get()
   async register(@Request() req) {
     if (req.query['hub.verify_token'] == process.env.WEBHOOK_VERIFY_TOKEN) {
       return req.query['hub.challenge'];
