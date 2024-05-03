@@ -26,4 +26,7 @@ export default (): IConfig => ({
       time: parseInt(process.env.JWT_REFRESH_TIME, 10),
     },
   },
+  genAi: {
+    apiKey: process.env.GEN_AI_API_KEY,
+  }
 });

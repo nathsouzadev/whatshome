@@ -5,6 +5,7 @@ import { RouterModule } from '@nestjs/core';
 import { router } from './config/router';
 import { ConfigModule } from '@nestjs/config';
 import { validationSchema } from './config/config.schema';
+import { GenAiModule } from './gen-ai/gen-ai.module';
 import config from './config/config';
 
 @Module({
@@ -17,6 +18,7 @@ import config from './config/config';
     MessageModule,
     AuthModule,
     RouterModule.register(router),
+    GenAiModule,
   ],
 })
 export class AppModule {}
